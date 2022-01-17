@@ -21,10 +21,9 @@ abstract class RotatableObject {
 
     }
 
-    public final function placeObject(): BlockTransaction {
-        $this->transaction = new BlockTransaction($this->world);
+    public final function placeObject($transaction) {
+        $this->transaction = $transaction;
         $this->makeObject();
-        return $this->transaction;
     }
 
     protected abstract function makeObject();
