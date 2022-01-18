@@ -12,7 +12,7 @@ use pocketmine\world\generator\Generator;
 class ApocalypseGenerator extends Generator {
 
     private const BIOME_NOISE = 100;
-    private const HEIGHT = 60;
+    public const HEIGHT = 60;
     private const BIOMES = [BiomeIds::HELL, BiomeIds::CRIMSON_FOREST, BiomeIds::WARPED_FOREST, BiomeIds::SOULSAND_VALLEY, BiomeIds::BASALT_DELTAS];
 
     private CityPopulator $city;
@@ -30,7 +30,7 @@ class ApocalypseGenerator extends Generator {
         $z = $chunkZ << Chunk::COORD_BIT_SIZE;
         for($dx = 0; $dx < Chunk::EDGE_LENGTH; $dx++){
             for($dz = 0; $dz < Chunk::EDGE_LENGTH; $dz++){
-                for($y = 0; $y < 60; $y++){
+                for($y = 0; $y <= self::HEIGHT; $y++){
                     $world->setBlockAt($x + $dx, $y, $z + $dz, VanillaBlocks::DIRT()->setCoarse(true));
                 }
             }
