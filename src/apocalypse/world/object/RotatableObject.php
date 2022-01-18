@@ -51,13 +51,13 @@ abstract class RotatableObject {
                 return [$x + $this->x, $y + $this->y, $z + $this->z];
 
             case self::RIGHT:
-                return [$z + $this->x, $y + $this->y, -$x + $this->z];
+                return [-$z + $this->x, $y + $this->y, $x + $this->z];
 
             case self::BACK:
                 return [-$x + $this->x, $y + $this->y, -$z + $this->z];
 
             case self::LEFT:
-                return [-$z + $this->x, $y + $this->y, $x + $this->z];
+                return [$z + $this->x, $y + $this->y, -$x + $this->z];
         }
     }
 
