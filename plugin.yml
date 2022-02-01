@@ -4,3 +4,5 @@ author: qPexLegendary
 api: 4.0.0
 main: apocalypse\Apocalypse
 load: STARTUP
+depend:
+  - INether
