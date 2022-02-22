@@ -2,6 +2,7 @@
 
 namespace apocalypse;
 
+use apocalypse\immersive\ImmersiveMechanicsTask;
 use apocalypse\world\ApocalypseGenerator;
 use apocalypse\world\VoidGenerator;
 use pocketmine\plugin\PluginBase;
@@ -15,7 +16,7 @@ class Apocalypse extends PluginBase {
     }
 
     protected function onEnable(): void {
-
+        $this->getScheduler()->scheduleRepeatingTask(new ImmersiveMechanicsTask($this), 10);
     }
 
     protected function onDisable(): void {
