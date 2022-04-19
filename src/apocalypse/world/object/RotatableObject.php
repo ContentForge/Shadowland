@@ -2,7 +2,6 @@
 
 namespace apocalypse\world\object;
 
-use apocalypse\util\RotatableObjectAdapter;
 use pocketmine\block\Block;
 use pocketmine\utils\Random;
 use pocketmine\world\BlockTransaction;

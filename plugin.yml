@@ -6,3 +6,5 @@ main: apocalypse\Apocalypse
 load: STARTUP
 depend:
   - INether
+  - Expo
+  - FormConstructor
