@@ -35,7 +35,6 @@ class BatterySelection {
 
         foreach ($batteries as $slot => $battery) {
             $form->addButton("§l{$battery->getRuName()}§r\n". ($battery->isEmpty()? "§4" : "") . $battery->formatCharge(), SimpleForm::IMAGE_TYPE_PATH, $battery->getTexturePath(), function(Player $player) use ($slot, $battery) {
-                $player->sendMessage($slot);
                 ($this->callback)($player, $slot, $battery);
             });
         }
