@@ -2,10 +2,13 @@
 
 namespace apocalypse\chat\radio;
 
+use apocalypse\item\ApocalypseItemsIds;
 use apocalypse\item\ItemRadio;
 use apocalypse\util\item\battery\BatteryTransaction;
+use apocalypse\util\item\ItemTransaction;
 use form\CustomForm;
 use form\SimpleForm;
+use pocketmine\item\ItemFactory;
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 use pocketmine\player\Player;
 
@@ -36,17 +39,23 @@ class FormsRadio {
             });
         }
 
+        /*
         $form->addButton("Улучшить батарею", SimpleForm::IMAGE_TYPE_PATH, "", function(Player $player) use ($radio) {
 
         });
+        */
 
-        $form->addButton("Увеличить дальность передачи сигнала", SimpleForm::IMAGE_TYPE_PATH, "", function(Player $player) use ($radio) {
+        if ($radio->getMaxDistance() < 16000) {
+            $form->addButton("Увеличить дальность передачи сигнала", SimpleForm::IMAGE_TYPE_PATH, "", function (Player $player) use ($radio) {
+                self::upgradeDistance($player, $radio);
+            });
+        }
 
-        });
-
-        $form->addButton("Усилить мощность приема", SimpleForm::IMAGE_TYPE_PATH, "", function(Player $player) use ($radio) {
-
-        });
+        if ($radio->getPower() < 1) {
+            $form->addButton("Усилить мощность приема", SimpleForm::IMAGE_TYPE_PATH, "", function (Player $player) use ($radio) {
+                self::upgradePower($player, $radio);
+            });
+        }
 
         $form->sendToPlayer($player);
     }
@@ -96,6 +105,48 @@ class FormsRadio {
             $radio->fuelRadio($player, $energy);
             $radio->updateItem($player);
         });
+
+        $transaction->sendForm();
+    }
+
+    public static function upgradeDistance(Player $player, ItemRadio $radio): void {
+        $f = ItemFactory::getInstance();
+        $transaction = new ItemTransaction(
+            $player,
+            "Улучшение радио",
+            "Данное улучшение позволяет отправлять сообщения на дальние дистанции. ".
+                    "Каждый уровень улучшения добавляет §2+0.2км§f к дальности вещания радиостанции.",
+            [
+                $f->get(ApocalypseItemsIds::CAPACITOR, 0)->setCount(1),
+                $f->get(ApocalypseItemsIds::COPPER_WIRE, 0)->setCount(1),
+            ],
+            function(Player $player) use ($radio) {
+                $radio->addMaxDistance(200);
+                $radio->updateItem($player);
+            },
+        );
+
+        $transaction->sendForm();
+    }
+
+    public static function upgradePower(Player $player, ItemRadio $radio): void {
+        $f = ItemFactory::getInstance();
+        $transaction = new ItemTransaction(
+            $player,
+            "Улучшение радио",
+            "Данное улучшение позволяет более эффективней принимать сигналы и декодировать их с других радиостанций. ".
+                    "Каждый уровень улучшения добавляет §2+5 процентов§f к мощности радиостанции.",
+            [
+                $f->get(ApocalypseItemsIds::CAPACITOR, 0)->setCount(2),
+                $f->get(ApocalypseItemsIds::CHIP, 0)->setCount(1),
+                $f->get(ApocalypseItemsIds::TRANSISTOR, 0)->setCount(2),
+                $f->get(ApocalypseItemsIds::CIRCUIT, 0)->setCount(1),
+            ],
+            function(Player $player) use ($radio) {
+                $radio->addPower(0.05);
+                $radio->updateItem($player);
+            },
+        );
 
         $transaction->sendForm();
     }
