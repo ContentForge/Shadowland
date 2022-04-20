@@ -2,6 +2,7 @@
 
 namespace apocalypse\immersive;
 
+use apocalypse\immersive\radiation\RadiationManager;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -15,7 +16,7 @@ class ImmersiveMechanicsTask extends Task implements Listener {
 
     public function __construct(PluginBase $plugin) {
         $this->managers = [
-
+            RadiationManager::getInstance(),
         ];
 
         $plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);

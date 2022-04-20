@@ -4,6 +4,7 @@ namespace apocalypse;
 
 use apocalypse\chat\ChatManager;
 use apocalypse\immersive\ImmersiveMechanicsTask;
+use apocalypse\immersive\radiation\RadiationManager;
 use apocalypse\item\ApocalypseItemsIds;
 use apocalypse\player\PlayerManager;
 use apocalypse\world\ApocalypseGenerator;
@@ -25,6 +26,7 @@ class Apocalypse extends PluginBase {
 
         PlayerManager::getInstance()->init($this);
         ChatManager::getInstance()->init($this);
+        RadiationManager::getInstance()->init($this);
     }
 
     protected function onDisable(): void {
