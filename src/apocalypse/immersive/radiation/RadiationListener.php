@@ -2,9 +2,11 @@
 
 namespace apocalypse\immersive\radiation;
 
+use apocalypse\world\biome\ApocalypseBiomeManager;
 use pocketmine\event\Listener;
 use pocketmine\event\world\ChunkLoadEvent;
 use pocketmine\event\world\ChunkUnloadEvent;
+use pocketmine\world\Position;
 
 class RadiationListener implements Listener {
 
@@ -26,9 +28,16 @@ class RadiationListener implements Listener {
                         ($cx * 4 + $scx) / 25,
                         ($cz * 4 + $scz) / 25,
                     ) + 1;
-                $rad *= 10;
+                $rad = ($rad + 1) / 2;
 
-                //TODO: Подбор уровня радиации в зависимости от биома
+                $biome = ApocalypseBiomeManager::getInstance()->getBiome(new Position(
+                    ($cx << 4) + ($scx << 2),
+                    0,
+                    ($cz << 4) + ($scz << 2),
+                    $event->getWorld()
+                    ));
+
+                $rad = $biome->getMinRadiationLevel() + ($biome->getMaxRadiationLevel() - $biome->getMinRadiationLevel()) * $rad;
                 $this->radiationManager->chunks[$cx][$cz][$scx][$scz] = (int) $rad;
             }
         }
