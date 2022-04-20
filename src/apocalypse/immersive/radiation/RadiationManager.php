@@ -3,6 +3,7 @@
 namespace apocalypse\immersive\radiation;
 
 use apocalypse\immersive\ImmersiveManager;
+use apocalypse\player\PlayerManager;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
@@ -63,7 +64,7 @@ class RadiationManager implements ImmersiveManager {
         $rad = $this->players[$player->getXuid()];
         $rad += $this->getRadiationGround($player->getPosition());
 
-        //TODO: Засчитывание радиации
+        PlayerManager::getInstance()->getPlayer($player)->updateRadLevel($rad);
         $this->lastDose[$player->getXuid()] = $rad;
         $this->players[$player->getXuid()] = 0;
     }
