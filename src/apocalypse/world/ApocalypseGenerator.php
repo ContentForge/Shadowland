@@ -2,6 +2,7 @@
 
 namespace apocalypse\world;
 
+use apocalypse\world\biome\ApocalypseBiomeManager;
 use apocalypse\world\populator\CityPopulator;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\data\bedrock\BiomeIds;
@@ -20,6 +21,7 @@ class ApocalypseGenerator extends Generator {
     public function __construct(int $seed, string $preset) {
         parent::__construct(0xdeadbeef, $preset);
 
+        ApocalypseBiomeManager::getInstance()->setSeed($seed);
         $this->city = new CityPopulator($this->random);
     }
 
