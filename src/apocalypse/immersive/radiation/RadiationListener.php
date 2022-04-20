@@ -37,7 +37,8 @@ class RadiationListener implements Listener {
                     $event->getWorld()
                     ));
 
-                $rad = $biome->getMinRadiationLevel() + ($biome->getMaxRadiationLevel() - $biome->getMinRadiationLevel()) * $rad;
+                if ($biome === null) $rad = 0;
+                else $rad = $biome->getMinRadiationLevel() + ($biome->getMaxRadiationLevel() - $biome->getMinRadiationLevel()) * $rad;
                 $this->radiationManager->chunks[$cx][$cz][$scx][$scz] = (int) $rad;
             }
         }

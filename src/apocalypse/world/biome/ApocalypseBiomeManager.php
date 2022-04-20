@@ -83,6 +83,6 @@ class ApocalypseBiomeManager {
     }
 
     public function getBiome(Position $pos): ?ApocalypseBiome {
-        return $this->biomes[$pos->getWorld()->getChunk($pos->getFloorX() << 4, $pos->getFloorZ() << 4)->getBiomeId($pos->getFloorX() & 0xF, $pos->getFloorZ() & 0xF)] ?? null;
+        return $this->biomes[$pos->getWorld()->getChunk($pos->getFloorX() >> 4, $pos->getFloorZ() >> 4)->getBiomeId($pos->getFloorX() & 0xF, $pos->getFloorZ() & 0xF)] ?? null;
     }
 }

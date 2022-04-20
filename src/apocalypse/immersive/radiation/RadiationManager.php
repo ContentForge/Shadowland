@@ -61,7 +61,7 @@ class RadiationManager implements ImmersiveManager {
     }
 
     public function handleRadiation(Player $player): void {
-        $rad = $this->players[$player->getXuid()];
+        $rad = $this->players[$player->getXuid()] ?? 0;
         $rad += $this->getRadiationGround($player->getPosition());
 
         PlayerManager::getInstance()->getPlayer($player)->updateRadLevel($rad);
