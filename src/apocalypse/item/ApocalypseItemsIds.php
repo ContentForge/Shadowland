@@ -22,6 +22,7 @@ class ApocalypseItemsIds {
     public const RADIO_BIOS = 10009;
     public const RADIO_BOX = 10010;
     public const TRANSISTOR = 10011;
+    public const HAND_GENERATOR = 10012;
 
     private static bool $init = false;
 
@@ -46,5 +47,6 @@ class ApocalypseItemsIds {
         $m->registerItem(new ItemRadioBios(new ItemIdentifier(self::RADIO_BIOS, 0)));
         $m->registerItem(new ItemRadioBox(new ItemIdentifier(self::RADIO_BOX, 0)));
         $m->registerItem(new ItemTransistor(new ItemIdentifier(self::TRANSISTOR, 0)));
+        $m->registerItem(new ItemHandGenerator(new ItemIdentifier(self::HAND_GENERATOR, 0)));
     }
 }
