@@ -10,8 +10,12 @@ class PlayerManager {
     use SingletonTrait;
 
     private array $players = [];
+    private string $filePath;
 
     public function init(PluginBase $plugin): PlayerManager {
+        $this->filePath = $plugin->getDataFolder() ."players/";
+        @mkdir($this->filePath);
+
         $plugin->getServer()->getPluginManager()->registerEvents(new PlayerListener($this), $plugin);
 
         return $this;
@@ -22,12 +26,17 @@ class PlayerManager {
     }
 
     public function join(Player $player){
-        //TODO: Загрузка данных
-        $this->players[$player->getXuid()] = new PlayerData($player, $this);
+        $p = $this->players[$player->getXuid()] = new PlayerData($player, $this);
+        $p->load();
     }
 
     public function quit(Player $player){
-        //TODO: Сохранение данных
+        $p = $this->players[$player->getXuid()];
+        $p?->save();
         unset($this->players[$player->getXuid()]);
+    }
+
+    public function getSaveFilePath(PlayerData $playerData): string {
+        return "{$this->filePath}{$playerData->getPlayer()->getXuid()}.json";
     }
 }

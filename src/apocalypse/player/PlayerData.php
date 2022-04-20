@@ -8,8 +8,10 @@ use pocketmine\world\Position;
 
 class PlayerData implements IChatSender {
 
-    public function __construct(private Player $player, private PlayerManager $manager) {
+    private string $saveFilePath;
 
+    public function __construct(private Player $player, private PlayerManager $manager) {
+        $this->saveFilePath = $this->manager->getSaveFilePath($this);
     }
 
     public function getPlayer(): Player {
@@ -22,5 +24,21 @@ class PlayerData implements IChatSender {
 
     public function getPosition(): Position {
         return $this->player->getPosition();
+    }
+
+    public function save(): void {
+        $data = [
+
+        ];
+
+        file_put_contents($this->saveFilePath, json_encode($data));
+    }
+
+    public function load(): void {
+        if (file_exists($this->saveFilePath)) {
+            $data = json_decode(file_get_contents($this->saveFilePath), true);
+        } else $data = [];
+
+
     }
 }
