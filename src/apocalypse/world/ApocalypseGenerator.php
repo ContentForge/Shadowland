@@ -12,6 +12,22 @@ use pocketmine\world\generator\Generator;
 
 class ApocalypseGenerator extends Generator {
 
+    /* ———————————No glitches?————————— *
+        ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
+        ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
+        ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
+        ⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
+        ⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
+        ⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+     * ———————————————————————————————— */
+
     private const BIOME_NOISE = 100;
     public const HEIGHT = 60;
     private const BIOMES = [BiomeIds::HELL, BiomeIds::CRIMSON_FOREST, BiomeIds::WARPED_FOREST, BiomeIds::SOULSAND_VALLEY, BiomeIds::BASALT_DELTAS];
@@ -30,8 +46,16 @@ class ApocalypseGenerator extends Generator {
 
         $x = $chunkX << Chunk::COORD_BIT_SIZE;
         $z = $chunkZ << Chunk::COORD_BIT_SIZE;
+
+        $biomeMap = ApocalypseBiomeManager::getInstance()->getBiomeMap($chunkX, $chunkZ);
+
         for($dx = 0; $dx < Chunk::EDGE_LENGTH; $dx++){
             for($dz = 0; $dz < Chunk::EDGE_LENGTH; $dz++){
+                $biome = ApocalypseBiomeManager::getInstance()->pickBiome($x + $dx, $z + $dz, $biomeMap);
+                $chunk = $world->getChunk($chunkX, $chunkZ);
+
+                $chunk->setBiomeId($dx, $dz, $biome->getBiomeId());
+
                 for($y = 0; $y <= self::HEIGHT; $y++){
                     $world->setBlockAt($x + $dx, $y, $z + $dz, VanillaBlocks::DIRT()->setCoarse(true));
                 }

@@ -18,6 +18,8 @@ class ApocalypseBiomeManager {
     private function __construct() {
         $this->random = new Random(0);
         $this->simplex = new Simplex($this->random, 1, 0.4, 1/32.0);
+
+        $this->registerBiome(new AshBiome());
     }
 
     private function registerBiome(ApocalypseBiome $biome): void {
@@ -83,6 +85,12 @@ class ApocalypseBiomeManager {
     }
 
     public function getBiome(Position $pos): ?ApocalypseBiome {
-        return $this->biomes[$pos->getWorld()->getChunk($pos->getFloorX() >> 4, $pos->getFloorZ() >> 4)->getBiomeId($pos->getFloorX() & 0xF, $pos->getFloorZ() & 0xF)] ?? null;
+        $x = (int) $pos->x;
+        $z = (int) $pos->z;
+        $chunk = $pos->getWorld()->getChunk($x >> 4, $z >> 4);
+
+        if ($chunk === null) return null;
+
+        return $this->biomes[$chunk->getBiomeId($x & 0xF, $z & 0xF)] ?? null;
     }
 }

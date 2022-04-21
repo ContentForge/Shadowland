@@ -22,24 +22,24 @@ class RadiationListener implements Listener {
         $cz = $event->getChunkZ();
 
         $this->radiationManager->chunks[$cx][$cz] = [];
-        for($scx = 0; $scx < 4; $scx++) {
-            for($scz = 0; $scz < 4; $scz++) {
+        for($dx = 0; $dx < 16; $dx++) {
+            for($dz = 0; $dz < 16; $dz++) {
                 $rad = $this->radiationManager->simplex->getNoise2D(
-                        ($cx * 4 + $scx) / 25,
-                        ($cz * 4 + $scz) / 25,
+                        ($dx + ($cx << 4)) / 200,
+                        ($dz + ($cz << 4)) / 200,
                     ) + 1;
                 $rad = ($rad + 1) / 2;
 
                 $biome = ApocalypseBiomeManager::getInstance()->getBiome(new Position(
-                    ($cx << 4) + ($scx << 2),
-                    0,
-                    ($cz << 4) + ($scz << 2),
-                    $event->getWorld()
+                        $dx + ($cx << 4),
+                        0,
+                        $dz + ($cz << 4),
+                        $event->getWorld()
                     ));
 
                 if ($biome === null) $rad = 0;
                 else $rad = $biome->getMinRadiationLevel() + ($biome->getMaxRadiationLevel() - $biome->getMinRadiationLevel()) * $rad;
-                $this->radiationManager->chunks[$cx][$cz][$scx][$scz] = (int) $rad;
+                $this->radiationManager->chunks[$cx][$cz][$dx][$dz] = (int) $rad;
             }
         }
     }

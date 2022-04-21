@@ -42,10 +42,8 @@ class RadiationManager implements ImmersiveManager {
 
         $cx = $pos->getFloorX() >> 4;
         $cz = $pos->getFloorZ() >> 4;
-        $scx = $pos->getFloorX() >> 2;
-        $scz = $pos->getFloorZ() >> 2;
 
-        return $this->chunks[$cx][$cz][$scx][$scz] ?? 0;
+        return $this->chunks[$cx][$cz][((int) $pos->x) & 0xF][((int) $pos->z) & 0xF] ?? 0;
     }
 
     public function getRadiationGround(Position $pos): int {
@@ -53,7 +51,7 @@ class RadiationManager implements ImmersiveManager {
         if ($rad === 0) return 0;
 
         //TODO: Проверка высоты в мире
-        return $rad + (int) ((mt_rand(-15, 15) / 100) * $rad);
+        return $rad + (int) ((mt_rand(-7, 7) / 100.0) * $rad);
     }
 
     public function addDose(Player $player, int $rad): void {
