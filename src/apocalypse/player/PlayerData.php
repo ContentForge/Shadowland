@@ -51,4 +51,8 @@ class PlayerData implements IChatSender {
     public function getRadLevel(): int {
         return $this->radLevel;
     }
+
+    public function onDeath(): void {
+        $this->radLevel = 0;
+    }
 }

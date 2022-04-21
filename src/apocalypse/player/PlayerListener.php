@@ -3,6 +3,7 @@
 namespace apocalypse\player;
 
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 
@@ -18,5 +19,9 @@ class PlayerListener implements Listener {
 
     public function onQuit(PlayerQuitEvent $event){
         $this->manager->quit($event->getPlayer());
+    }
+
+    public function onDeath(PlayerDeathEvent $event){
+        $this->manager->getPlayer($event->getPlayer())->onDeath();
     }
 }
