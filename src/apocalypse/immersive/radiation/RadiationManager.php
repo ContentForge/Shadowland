@@ -28,6 +28,7 @@ class RadiationManager implements ImmersiveManager {
 
     public function init(PluginBase $plugin): void {
         $plugin->getServer()->getPluginManager()->registerEvents(new RadiationListener($this), $plugin);
+        $plugin->getScheduler()->scheduleRepeatingTask(new RadIllnessTask(), 20);
     }
 
     public function onQuit(Player $player) {
