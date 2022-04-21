@@ -20,6 +20,8 @@ class ApocalypseBiomeManager {
         $this->simplex = new Simplex($this->random, 1, 0.4, 1/32.0);
 
         $this->registerBiome(new AshBiome());
+        $this->registerBiome(new FireBiome());
+        $this->registerBiome(new NormalBiome());
     }
 
     private function registerBiome(ApocalypseBiome $biome): void {
