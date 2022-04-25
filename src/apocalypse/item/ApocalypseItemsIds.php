@@ -5,6 +5,10 @@ namespace apocalypse\item;
 use apocalypse\item\battery\ItemBattery;
 use apocalypse\item\battery\ItemBigBattery;
 use apocalypse\item\battery\ItemSmallBattery;
+use apocalypse\item\medicine\ItemBlueMedKit;
+use apocalypse\item\medicine\ItemGreenMedKit;
+use apocalypse\item\medicine\ItemOrangeMedKit;
+use apocalypse\item\medicine\ItemYellowMedKit;
 use expo\item\ItemManager;
 use pocketmine\item\ItemIdentifier;
 
@@ -23,6 +27,10 @@ class ApocalypseItemsIds {
     public const RADIO_BOX = 10010;
     public const TRANSISTOR = 10011;
     public const HAND_GENERATOR = 10012;
+    public const BLUE_MEDKIT = 10013;
+    public const GREEN_MEDKIT = 10014;
+    public const ORANGE_MEDKIT = 10015;
+    public const YELLOW_MEDKIT = 10016;
 
     private static bool $init = false;
 
@@ -48,5 +56,9 @@ class ApocalypseItemsIds {
         $m->registerItem(new ItemRadioBox(new ItemIdentifier(self::RADIO_BOX, 0)));
         $m->registerItem(new ItemTransistor(new ItemIdentifier(self::TRANSISTOR, 0)));
         $m->registerItem(new ItemHandGenerator(new ItemIdentifier(self::HAND_GENERATOR, 0)));
+        $m->registerItem(new ItemBlueMedKit(new ItemIdentifier(self::BLUE_MEDKIT, 0)));
+        $m->registerItem(new ItemGreenMedKit(new ItemIdentifier(self::GREEN_MEDKIT, 0)));
+        $m->registerItem(new ItemOrangeMedKit(new ItemIdentifier(self::ORANGE_MEDKIT, 0)));
+        $m->registerItem(new ItemYellowMedKit(new ItemIdentifier(self::YELLOW_MEDKIT, 0)));
     }
 }
