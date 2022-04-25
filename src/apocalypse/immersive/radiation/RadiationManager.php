@@ -74,6 +74,8 @@ class RadiationManager implements ImmersiveManager {
 
     public function tick(): void {
         foreach (Server::getInstance()->getOnlinePlayers() as $player) {
+            if ($player->isCreative() || $player->isSpectator()) continue;
+
             $this->handleRadiation($player);
         }
     }

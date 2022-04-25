@@ -15,6 +15,8 @@ class RadIllnessTask extends Task {
         $playerManager = PlayerManager::getInstance();
 
         foreach (Server::getInstance()->getOnlinePlayers() as $player) {
+            if ($player->isCreative() || $player->isSpectator()) continue;
+
             $playerData = $playerManager->getPlayer($player);
             $dose = $playerData->getRadLevel();
 

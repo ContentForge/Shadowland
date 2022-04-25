@@ -48,7 +48,7 @@ class ApocalypseBiomeManager {
                 $map[] = [
                     'x' => ($tcx << 8) + $this->random->nextRange(0, 256),
                     'z' => ($tcz << 8) + $this->random->nextRange(0, 256),
-                    'biome' => $this->biomes[array_rand($this->biomes)],
+                    'biome' => array_values($this->biomes)[$this->random->nextRange(0, count($this->biomes) - 1)],
                 ];
             }
         }

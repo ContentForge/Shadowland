@@ -22,7 +22,7 @@ class Apocalypse extends PluginBase {
     }
 
     protected function onEnable(): void {
-        $this->getScheduler()->scheduleRepeatingTask(new ImmersiveMechanicsTask($this), 10);
+        $this->getScheduler()->scheduleRepeatingTask(new ImmersiveMechanicsTask($this), 20);
 
         PlayerManager::getInstance()->init($this);
         ChatManager::getInstance()->init($this);

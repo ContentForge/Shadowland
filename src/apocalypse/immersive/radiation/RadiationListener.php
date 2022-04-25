@@ -25,10 +25,10 @@ class RadiationListener implements Listener {
         for($dx = 0; $dx < 16; $dx++) {
             for($dz = 0; $dz < 16; $dz++) {
                 $rad = $this->radiationManager->simplex->getNoise2D(
-                        ($dx + ($cx << 4)) / 200,
-                        ($dz + ($cz << 4)) / 200,
+                        ($dx + ($cx << 4)) / 250,
+                        ($dz + ($cz << 4)) / 250,
                     ) + 1;
-                $rad = ($rad + 1) / 2;
+                $rad /= 2.0;
 
                 $biome = ApocalypseBiomeManager::getInstance()->getBiome(new Position(
                         $dx + ($cx << 4),

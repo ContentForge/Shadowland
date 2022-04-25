@@ -15,6 +15,6 @@ class AshBiome extends ApocalypseBiome {
     }
 
     public function getMaxRadiationLevel(): int {
-        return 1000;
+        return 2000;
     }
 }

@@ -52,7 +52,6 @@ class ApocalypseGenerator extends Generator {
         for($dx = 0; $dx < Chunk::EDGE_LENGTH; $dx++){
             for($dz = 0; $dz < Chunk::EDGE_LENGTH; $dz++){
                 $biome = ApocalypseBiomeManager::getInstance()->pickBiome($x + $dx, $z + $dz, $biomeMap);
-                $chunk = $world->getChunk($chunkX, $chunkZ);
 
                 $chunk->setBiomeId($dx, $dz, $biome->getBiomeId());
 
