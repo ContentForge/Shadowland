@@ -2,6 +2,8 @@
 
 namespace apocalypse\item\medicine;
 
+use pocketmine\entity\effect\EffectInstance;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\player\Player;
 
@@ -33,6 +35,13 @@ class ItemOrangeMedKit extends MedKit {
     }
 
     public function onUse(Player $player): void {
+        $effects = [];
 
+        $effects[] = new EffectInstance(VanillaEffects::REGENERATION(), 20 * 20);
+        $effects[] = new EffectInstance(VanillaEffects::NAUSEA(), 20 * 15);
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60 * 2);
+        $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 30);
+
+        foreach ($effects as $effect) $player->getEffects()->add($effect);
     }
 }

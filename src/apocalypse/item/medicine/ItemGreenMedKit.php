@@ -2,6 +2,9 @@
 
 namespace apocalypse\item\medicine;
 
+use apocalypse\player\PlayerManager;
+use pocketmine\entity\effect\EffectInstance;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\player\Player;
 
@@ -34,6 +37,14 @@ class ItemGreenMedKit extends MedKit {
     }
 
     public function onUse(Player $player): void {
+        $effects = [];
 
+        $effects[] = new EffectInstance(VanillaEffects::INSTANT_HEALTH(), 1, 0);
+        $effects[] = new EffectInstance(VanillaEffects::BLINDNESS(), 20 * 5);
+        $effects[] = new EffectInstance(VanillaEffects::SLOWNESS(), 20 * 20);
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60 * 5);
+        PlayerManager::getInstance()->getPlayer($player)->updateRadLevel(-2000);
+
+        foreach ($effects as $effect) $player->getEffects()->add($effect);
     }
 }
