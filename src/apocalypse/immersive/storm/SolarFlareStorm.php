@@ -30,9 +30,9 @@ class SolarFlareStorm extends Storm {
             //TODO: Проверка мира
 
             $pos = $player->getPosition();
-            $pRad = (int) ($rad * ($pos->y / 60));
+            $pRad = max((int) ($rad * (($pos->y - 30) / 30)), 0);
 
-            $radManager->addDose($player, $pRad);
+            $radManager->addDose($player, mt_rand((int) ($pRad * 0.85), (int) ($pRad * 1.15)));
         }
     }
 }

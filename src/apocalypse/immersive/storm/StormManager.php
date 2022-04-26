@@ -25,11 +25,15 @@ class StormManager implements ImmersiveManager {
 
     private function pickStorm(): void {
         $this->storm = $this->next;
-        $this->next = $this->storms[array_rand($this->storms)];
         $this->passedTime = 0;
 
-        if ($this->storm === null) $this->timeLeft = mt_rand(420, 1200);
-        else $this->timeLeft = mt_rand((int) ($this->storm->getAverageDuration() * 0.95), (int) ($this->storm->getAverageDuration() * 1.05));
+        if ($this->storm === null) {
+            $this->timeLeft = mt_rand(420, 1200);
+            $this->next = $this->storms[array_rand($this->storms)];
+        } else {
+            $this->timeLeft = mt_rand((int) ($this->storm->getAverageDuration() * 0.95), (int) ($this->storm->getAverageDuration() * 1.05));
+            $this->next = null;
+        }
     }
 
     public function tick(): void {

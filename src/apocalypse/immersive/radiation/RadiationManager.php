@@ -56,7 +56,7 @@ class RadiationManager implements ImmersiveManager {
     }
 
     public function addDose(Player $player, int $rad): void {
-        $this->players[$player->getXuid()] = $this->players[$player->getXuid()] + $rad;
+        $this->players[$player->getXuid()] = ($this->players[$player->getXuid()] ?? 0) + $rad;
     }
 
     public function handleRadiation(Player $player): void {
