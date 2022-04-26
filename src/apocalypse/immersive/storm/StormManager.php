@@ -29,7 +29,7 @@ class StormManager implements ImmersiveManager {
         $this->passedTime = 0;
 
         if ($this->storm === null) $this->timeLeft = mt_rand(420, 1200);
-        else $this->timeLeft = (int) ($this->storm->getAverageDuration() * 1.05);
+        else $this->timeLeft = mt_rand((int) ($this->storm->getAverageDuration() * 0.95), (int) ($this->storm->getAverageDuration() * 1.05));
     }
 
     public function tick(): void {
