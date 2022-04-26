@@ -39,10 +39,10 @@ class ItemBlueMedKit extends MedKit {
     public function onUse(Player $player): void {
         $effects = [];
 
-        $effects[] = new EffectInstance(VanillaEffects::REGENERATION(), 20 * 20);
-        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60 * 5);
-        $effects[] = new EffectInstance(VanillaEffects::SLOWNESS(), 20 * 60 * 3);
-        $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 60);
+        $effects[] = new EffectInstance(VanillaEffects::REGENERATION(), 20 * 20, 1);
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60);
+        $effects[] = new EffectInstance(VanillaEffects::SLOWNESS(), 20 * 30);
+        $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 15);
         PlayerManager::getInstance()->getPlayer($player)->updateRadLevel(-1000);
 
         foreach ($effects as $effect) $player->getEffects()->add($effect);

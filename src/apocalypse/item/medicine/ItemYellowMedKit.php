@@ -39,9 +39,9 @@ class ItemYellowMedKit extends MedKit {
     public function onUse(Player $player): void {
         $effects = [];
 
-        $effects[] = new EffectInstance(VanillaEffects::INSTANT_HEALTH(), 1, 1);
-        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60 * 5);
-        $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 20);
+        $player->setHealth(min($player->getMaxHealth(), $player->getHealth() + ($player->getMaxHealth() / 2)));
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60);
+        $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 10);
         $effects[] = new EffectInstance(VanillaEffects::BLINDNESS(), 20 * 5);
 
 

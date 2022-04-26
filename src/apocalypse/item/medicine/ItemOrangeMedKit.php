@@ -38,8 +38,8 @@ class ItemOrangeMedKit extends MedKit {
         $effects = [];
 
         $effects[] = new EffectInstance(VanillaEffects::REGENERATION(), 20 * 20);
-        $effects[] = new EffectInstance(VanillaEffects::NAUSEA(), 20 * 15);
-        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60 * 2);
+        $effects[] = new EffectInstance(VanillaEffects::NAUSEA(), 20 * 10);
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60);
         $effects[] = new EffectInstance(VanillaEffects::MINING_FATIGUE(), 20 * 30);
 
         foreach ($effects as $effect) $player->getEffects()->add($effect);
