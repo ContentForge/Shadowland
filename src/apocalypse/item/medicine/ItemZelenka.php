@@ -5,6 +5,8 @@ namespace apocalypse\item\medicine;
 use apocalypse\player\PlayerManager;
 use expo\item\CustomItem;
 use expo\item\data\BasicComponentDataTrait;
+use pocketmine\entity\effect\EffectInstance;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\ItemUseResult;
@@ -56,7 +58,7 @@ class ItemZelenka extends Item implements CustomItem {
 
         $effects = [];
 
-        //TODO: Эффекты
+        $effects[] = new EffectInstance(VanillaEffects::HUNGER(), 20 * 60 * 2);
 
         PlayerManager::getInstance()->getPlayer($player)->updateRadLevel(-500000);
         foreach ($effects as $effect) $player->getEffects()->add($effect);
