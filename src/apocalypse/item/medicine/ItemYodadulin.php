@@ -5,6 +5,8 @@ namespace apocalypse\item\medicine;
 use apocalypse\player\PlayerManager;
 use expo\item\CustomItem;
 use expo\item\data\BasicComponentDataTrait;
+use pocketmine\entity\effect\EffectInstance;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\ItemUseResult;
@@ -58,7 +60,9 @@ class ItemYodadulin extends Item implements CustomItem {
 
         $effects = [];
 
-        //TODO: Эффекты
+        $player->setHealth($player->getMaxHealth());
+        $effects[] = new EffectInstance(VanillaEffects::WEAKNESS(), 20 * 60);
+        $effects[] = new EffectInstance(VanillaEffects::HUNGER(), 20 * 20);
 
         PlayerManager::getInstance()->getPlayer($player)->updateRadLevel(-50000);
         foreach ($effects as $effect) $player->getEffects()->add($effect);
