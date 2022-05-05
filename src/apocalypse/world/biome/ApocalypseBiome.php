@@ -28,7 +28,7 @@ class ApocalypseBiome {
         return 1;
     }
 
-    public function handleSunEffect(Player $player, float $dose): void {
+    public function handleSunEffect(Player $player, float $dose, bool $isUnderSky): void {
         //TODO: Эффекты для каждой полученной дозы игроком
     }
 }

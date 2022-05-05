@@ -55,7 +55,7 @@ class BurningSun implements ImmersiveManager {
             $this->players[$player->getId()] = $dose;
             if ($dose === 0.0) return;
 
-            $biome?->handleSunEffect($player, $dose);
+            $biome?->handleSunEffect($player, $dose, $underSky);
         }
     }
 
