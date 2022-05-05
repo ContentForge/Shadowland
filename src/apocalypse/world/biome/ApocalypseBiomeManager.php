@@ -22,6 +22,7 @@ class ApocalypseBiomeManager {
         $this->registerBiome(new AshBiome());
         $this->registerBiome(new FireBiome());
         $this->registerBiome(new NormalBiome());
+        $this->registerBiome(new DuskBiome());
     }
 
     private function registerBiome(ApocalypseBiome $biome): void {
