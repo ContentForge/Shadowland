@@ -11,7 +11,10 @@ use apocalypse\item\medicine\ItemOrangeMedKit;
 use apocalypse\item\medicine\ItemYellowMedKit;
 use apocalypse\item\medicine\ItemYodadulin;
 use apocalypse\item\medicine\ItemZelenka;
+use expo\item\CustomItem;
 use expo\item\ItemManager;
+use pocketmine\inventory\CreativeInventory;
+use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 
 class ApocalypseItemsIds {
