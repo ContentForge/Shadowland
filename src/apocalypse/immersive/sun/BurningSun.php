@@ -4,10 +4,12 @@ namespace apocalypse\immersive\sun;
 
 use apocalypse\immersive\ImmersiveManager;
 use apocalypse\world\biome\ApocalypseBiomeManager;
+use pocketmine\block\Air;
 use pocketmine\block\Door;
 use pocketmine\block\Fence;
 use pocketmine\block\FenceGate;
 use pocketmine\block\Glass;
+use pocketmine\block\Ladder;
 use pocketmine\block\Thin;
 use pocketmine\block\Torch;
 use pocketmine\block\Wall;
@@ -26,10 +28,12 @@ class BurningSun implements ImmersiveManager {
 
     public function __construct() {
         $this->transparentBlocks = [
+            Air::class,
             Glass::class,
             Thin::class,
             Wall::class,
             Door::class,
+            Ladder::class,
             FenceGate::class,
             Fence::class,
             Torch::class,
@@ -48,7 +52,7 @@ class BurningSun implements ImmersiveManager {
                 self::$onClearSky[] = $player->getId();
                 $add = $this->getDoseByTime(0.1 * ($biome === null? 1 : $biome->getSunMultiplier($player)), $player->getWorld()->getTimeOfDay());
                 $dose = min($dose + $add, 1);
-                if ($add !== 0.0) $player->sendTip("§g§l⚠ §cСолнечная радиация §g⚠");
+                if ($add !== 0.0) $player->sendTip("  §g§l⚠ §cСолнечная радиация §g⚠");
             } else {
                 $dose = max($dose - 0.25, 0);
             }
@@ -72,9 +76,14 @@ class BurningSun implements ImmersiveManager {
         $world = $player->getWorld();
         $pos = $player->getPosition();
 
-        for($y = World::Y_MAX, $pY = $pos->getY() + 1; $y > $pY; $y--){
+        for($y = World::Y_MAX, $pY = $pos->getY() + 1; $y >= $pY; $y--){
             $block = $world->getBlockAt((int) $pos->getX(), $y, (int) $pos->getZ());
-            if(!in_array($block::class, $this->transparentBlocks)) return false;
+
+            foreach ($this->transparentBlocks as $transparentBlock) {
+                if ($block instanceof $transparentBlock) continue 2;
+            }
+
+            return false;
         }
 
         self::$onClearSky[] = $player->getId();
