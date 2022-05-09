@@ -11,10 +11,7 @@ use apocalypse\item\medicine\ItemOrangeMedKit;
 use apocalypse\item\medicine\ItemYellowMedKit;
 use apocalypse\item\medicine\ItemYodadulin;
 use apocalypse\item\medicine\ItemZelenka;
-use expo\item\CustomItem;
 use expo\item\ItemManager;
-use pocketmine\inventory\CreativeInventory;
-use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 
 class ApocalypseItemsIds {
@@ -38,6 +35,7 @@ class ApocalypseItemsIds {
     public const YELLOW_MEDKIT = 10016;
     public const YODADULIN = 10017;
     public const ZELENKA = 10018;
+    public const PPC = 10019;
 
     private static bool $init = false;
 
@@ -69,5 +67,6 @@ class ApocalypseItemsIds {
         $m->registerItem(new ItemYellowMedKit(new ItemIdentifier(self::YELLOW_MEDKIT, 0)));
         $m->registerItem(new ItemYodadulin(new ItemIdentifier(self::YODADULIN, 0)));
         $m->registerItem(new ItemZelenka(new ItemIdentifier(self::ZELENKA, 0)));
+        $m->registerItem(new ItemPPC(new ItemIdentifier(self::PPC, 0)));
     }
 }
