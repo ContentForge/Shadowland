@@ -3,6 +3,8 @@
 namespace apocalypse\chat;
 
 use apocalypse\chat\radio\IRadio;
+use apocalypse\immersive\storm\SolarFlareStorm;
+use apocalypse\immersive\storm\StormManager;
 use apocalypse\item\ItemRadio;
 use apocalypse\player\PlayerData;
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
@@ -143,6 +145,12 @@ class ChatManager {
             $playerData->getPlayer()->sendMessage("§cРадио разряжено. Зарядите его чтобы использовать.");
             return;
         }
+
+        if (StormManager::getInstance()->storm instanceof SolarFlareStorm) {
+            $playerData->getPlayer()->sendMessage("§cОтказ оборудования: идет Геомагнитный шторм.");
+            return;
+        }
+
         $this->sendRadioMessage($playerData, $radio, $message);
         $radio->updateCharge(-1);
         $radio->updateItem($playerData->getPlayer());
